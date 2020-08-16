@@ -40,13 +40,23 @@ Demonstrate your understanding of this Sprint's concepts by answering the follow
 
 -   [ ] Mention two parts of Express that you learned about this week.
 
+We learned about Express routing (and routers), and the types of Express middleware.
+
 -   [ ] Describe Middleware?
+
+Middleware are functions or pieces of code that operate "in the middle" of a request, and either move on to another middleware, or issue a response to the client.
 
 -   [ ] Describe a Resource?
 
+A "resource" in a REST API is usually the "thing" someone is querying about-- a user, an item, a product, etc.
+
 -   [ ] What can the API return to help clients know if a request was successful?
 
+A stauts code in the 200 range.
+
 -   [ ] How can we partition our application into sub-applications?
+
+We can use middleware files, routers, and then simplify our main server file by importing in what is needed, and only what is needed.
 
 ## Minimum Viable Product
 
