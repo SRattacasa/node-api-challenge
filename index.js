@@ -12,3 +12,22 @@ I need this code, but don't know where, perhaps should make some middleware, don
 
 Go code!
 */
+const express = require("express")
+const projectRouter = require("./routers/projectRouter")
+const actionRouter = require("./routers/actionRouter")
+const logger = require("./middleware/logger")
+
+const server = express()
+const port = 5000
+
+server.use(express.json())
+server.use(logger())
+
+// server.use(routerstuff)
+
+server.use("/projects", projectRouter)
+server.use("/actions", actionRouter)
+
+server.listen(port, () => { 
+    console.log("Server is listening on ", port)
+})
