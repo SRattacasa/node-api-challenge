@@ -27,6 +27,11 @@ router.get("/:id/actions", validate, (req, res) => {
     .then(list => { 
         res.status(200).json(list)
     })
+    .catch(err => { 
+        res.status(500).json({
+          message: "There was an error because we are learning how to write APIs"
+        })
+      })
 })
 
 
