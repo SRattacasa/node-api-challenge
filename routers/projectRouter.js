@@ -4,28 +4,43 @@ const validate = require("../middleware/projectValidator")
 
 const router = express.Router();
 
-router.get('/',  (req, res) => { 
-    projects.get(req.params.id)
-    .then(projectList => {
-        res.status(200).json(projectList)
-    })
-    .catch(err=> {console.log(err)})
+router.get('/', async (req, res) => { 
+    try {
+    const projectList = await projects.get()
+    res.status(200).json(projectList)
+    } catch (err) {
+        next(err)
+    }
 })
 
-router.get('/:id',  (req, res) => { 
-    projects.get(req.params.id)
-    .then(projectList => {
+router.get('/:id', validate, async (req, res) => { 
+    try {
+        const projectList = await projects.get(req.params.id)
         res.status(200).json(projectList)
-    })
-    .catch(err=> {console.log(err)})
+        } catch (err) {
+            next(err)
+        }
 })
+
+router.get("/:id/actions", validate, (req, res) => {
+    projects.getProjectActions(req.params.id)
+    .then(list => { 
+        res.status(200).json(list)
+    })
+})
+
+
 
 router.put("/:id", validate, (req, res) => {
     projects.update(req.params.id, req.body)
     .then(updates => { 
         res.status(200).json(updates)
     })
-    .catch(err=> {console.log(err)})
+    .catch(err => { 
+        res.status(500).json({
+          message: "There was an error because we are learning how to write APIs"
+        })
+      })
 })
 
 router.post("/", (req, res) => {
@@ -33,7 +48,11 @@ router.post("/", (req, res) => {
     .then(bananaword => {
         res.status(201).json(req.body)
     })
-    .catch(err=> {console.log(err)})
+    .catch(err => { 
+        res.status(500).json({
+          message: "There was an error because we are learning how to write APIs"
+        })
+      })
 })
 
 router.delete("/:id", validate, (req, res) => {
@@ -41,7 +60,11 @@ router.delete("/:id", validate, (req, res) => {
     .then(removed => { 
         res.status(200).json({message: "Deleted"})
     })
-    .catch(err=> {console.log(err)})
+    .catch(err => { 
+        res.status(500).json({
+          message: "There was an error because we are learning how to write APIs"
+        })
+      })
 })
 
 module.exports = router;
