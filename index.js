@@ -16,9 +16,14 @@ const express = require("express")
 const projectRouter = require("./routers/projectRouter")
 const actionRouter = require("./routers/actionRouter")
 const logger = require("./middleware/logger")
+const helmet = require("helmet")
+const cors = require("cors")
+
+const port = process.env.PORT || 4000
 
 const server = express()
-const port = 5000
+server.use(helmet())
+server.use(cors())
 
 server.use(express.json())
 server.use(logger())
